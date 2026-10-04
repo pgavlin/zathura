@@ -71,14 +71,15 @@ static void set_plugin_dir(zathura_plugin_manager_t* plugin_manager, const char*
 }
 
 static void set_default_dirs(zathura_plugin_manager_t* plugin_manager) {
-#ifdef ZATHURA_PLUGINDIR
-  set_plugin_dir(plugin_manager, ZATHURA_PLUGINDIR);
-#endif
-
   const char* env_paths = g_getenv("ZATHURA_PLUGINS_PATH");
   if (env_paths != NULL) {
     set_plugin_dir(plugin_manager, env_paths);
+    return;
   }
+
+#ifdef ZATHURA_PLUGINDIR
+  set_plugin_dir(plugin_manager, ZATHURA_PLUGINDIR);
+#endif
 }
 
 zathura_plugin_manager_t* zathura_plugin_manager_new(void) {
